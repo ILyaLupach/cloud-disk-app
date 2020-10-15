@@ -1,0 +1,5 @@
+{
+  "DEV_PORT": 8080,
+  "dbUri": "mongodb+srv://electronic:210892@cloud-disk-cluster.vsgyu.mongodb.net/cloud?retryWrites=true&w=majority",
+  "secretKey": "Long live Belarus"
+}
