@@ -1,0 +1,34 @@
+@import '../../assets/styles/theme.scss';
+
+.navbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  background-color: #fff;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1140px;
+    padding: 10px;
+  }
+
+  &__logo {
+    height: 100%;
+  }
+
+  &__title {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__login {
+    margin-left: auto;
+    margin-right: 20px;
+  }
+}

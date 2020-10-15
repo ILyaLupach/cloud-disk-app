@@ -22,7 +22,7 @@ router.post('/signup',
 
       const validationError: Result<ValidationError> = validationResult(req)
       if (!validationError.isEmpty()) {
-        return res.status(400).json({ message: 'Uncorrect request', validationError })
+        return res.status(400).json({ message: 'Uncorrect request' })
       }
 
       const isUserExist = await User.findOne({ email })
