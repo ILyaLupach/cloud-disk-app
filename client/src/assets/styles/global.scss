@@ -24,6 +24,13 @@ a {
   color: inherit;
 }
 
+button {
+  font-size: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 #root {
   width: 100%;
 }

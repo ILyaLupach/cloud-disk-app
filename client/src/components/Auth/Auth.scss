@@ -1,39 +1,42 @@
-@import '../../../assets/styles/theme.scss';
+@import '../../assets/styles/theme.scss';
 
-.signup {
+.auth {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
   margin-bottom: 50px;
   padding: 30px 40px;
-  background-color: #fff;
   border-radius: 30px;
+  background-color: #fff;
   &__header {
     font-size: 24px;
   }
   &__input {
     width: 100%;
     margin: 20px;
+    padding: 6px 10px;
     border-bottom: 1px solid $font-color;
     font-size: 16px;
-    padding: 6px 10px;
     opacity: .8;
     &:focus {
       opacity: 1;
     }
   }
   &__btn {
-    border: none;
-    background-color: $font-color;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: 700;
-    padding: 8px 10px;
     align-self: flex-end;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
     font-size: 16px;
+    color: #fff;
+    background-color: $font-color;
     opacity: .8;
     cursor: pointer;
+    &_login {
+      padding: 8px 40px;
+    }
     &:disabled {
       opacity: .3 !important;
       cursor: default;
@@ -44,14 +47,15 @@
   }
   &__wrapper {
     display: flex;
-    align-items: center;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
     margin-top: 12px;
   }
   &__status {
     margin-right: auto;
-    font-size: 18px;
+    padding-right: 20px;
+    font-size: 16px;
     &_orange {
       color: rgb(255, 166, 0);
     }

@@ -27,8 +27,15 @@
     font-weight: 700;
   }
 
-  &__login {
-    margin-left: auto;
-    margin-right: 20px;
+  &__btn {
+    opacity: .8;
+    font-weight: 700;
+    &:hover {
+      opacity: 1;
+    }
+    &_to-right{
+      margin-left: auto;
+      margin-right: 20px;
+    }
   }
 }

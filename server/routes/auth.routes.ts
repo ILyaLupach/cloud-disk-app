@@ -3,6 +3,7 @@ import { check, Result, ValidationError, validationResult } from 'express-valida
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
+import authMiddleware from '../middleware/auth.middleware'
 import User from '../models/user'
 
 import { Document } from 'mongoose'
@@ -55,6 +56,7 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
     }
 
     const token = jwt.sign({ id: user.id }, config.get('secretKey'), { expiresIn: '1d' })
+
     res.json({
       token,
       user: {
@@ -72,5 +74,30 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
     res.status(500).json({ message: 'server error' })
   }
 })
+
+router.get(
+  '/auth',
+  authMiddleware,
+  async (req: Request | any, res: Response): Promise<any> => {
+    try {
+      const user: UserType & Document | null = await User.findOne({ _id: req.user.id })
+      if (!user) return res.status(401).json({ message: 'Auth error' })
+      const token = jwt.sign({ id: user.id }, config.get('secretKey'), { expiresIn: '1d' })
+      res.json({
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          diskSpace: user.diskSpace,
+          usedSpace: user.usedSpace,
+          avatar: user.avatar,
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: 'server error' })
+    }
+  })
 
 export default router
