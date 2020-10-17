@@ -11,6 +11,13 @@ export type UserType = {
 }
 
 export type FileType = {
-  type: Schema.Types.ObjectId
-  ref: string
+  name: String
+  type: String
+  accessLink?: String
+  size?: Number
+  path?: String
+  date?: Date
+  user?: Schema.Types.ObjectId
+  parent?: Schema.Types.ObjectId
+  childs?: Schema.Types.ObjectId[]
 }

@@ -1,0 +1,47 @@
+@import '../../../../assets/styles/theme.scss';
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .5);
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    margin-bottom: 50px;
+    padding: 30px 40px;
+    border-radius: 30px;
+    background-color: #fff;
+  }
+  &__header {
+    font-size: 24px;
+  }
+  &__input {
+    width: 100%;
+    margin: 20px;
+    padding: 6px 10px;
+    border-bottom: 1px solid $font-color;
+    font-size: 16px;
+    opacity: .8;
+    &:focus {
+      opacity: 1;
+    }
+  }
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+    .btn {
+      margin-left: 20px;
+    }
+  }
+}

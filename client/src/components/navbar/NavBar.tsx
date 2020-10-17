@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logOut } from '../../actions/auth/auth.actions'
-import FolderIcon from '../../assets/images/folder.svg'
+import FolderIcon from '../../assets/images/folders.svg'
 
 import { RootState } from '../../reducers'
 
@@ -20,13 +20,13 @@ const NavBar = () => {
         <img src={FolderIcon} className='navbar__logo' />
         <div className='navbar__title'>Cloud Disk</div>
         {!isGuest ? (
-          <button className='navbar__btn navbar__btn_to-right' onClick={onLogOut}>
+          <button className='btn' onClick={onLogOut}>
             Выйти
           </button>
         ) : (
           <Fragment>
-            <NavLink to='/login' className='navbar__btn navbar__btn_to-right'>Вход</NavLink>
-            <NavLink to='/signup' className='navbar__btn'>Регистрация</NavLink>
+            <NavLink to='/login' className='btn'>Вход</NavLink>
+            <NavLink to='/signup' className='btn'>Регистрация</NavLink>
           </Fragment>
         )}
       </div>

@@ -4,7 +4,7 @@ import './Input.scss'
 
 export type Props = {
   type?: string
-  name: string
+  name?: string
   placeholder?: string
   className?: string
   value: string

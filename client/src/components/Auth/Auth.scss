@@ -23,52 +23,11 @@
       opacity: 1;
     }
   }
-  &__btn {
-    align-self: flex-end;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 16px;
-    color: #fff;
-    background-color: $font-color;
-    opacity: .8;
-    cursor: pointer;
-    &_login {
-      padding: 8px 40px;
-    }
-    &:disabled {
-      opacity: .3 !important;
-      cursor: default;
-    }
-    &:hover {
-      opacity: 1;
-    }
-  }
   &__wrapper {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
     margin-top: 12px;
-  }
-  &__status {
-    margin-right: auto;
-    padding-right: 20px;
-    font-size: 16px;
-    &_orange {
-      color: rgb(255, 166, 0);
-    }
-    &_red {
-      color: rgb(233, 35, 35);
-    }
-    &_green {
-      color: rgb(57, 145, 61);
-    }
-    &_is-loading {
-      &:hover {
-        cursor: progress !important;
-      }
-    }
   }
 }

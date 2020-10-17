@@ -13,7 +13,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     signUp(email, password)
   }
@@ -33,7 +33,7 @@ const SignUp = () => {
   }
 
   return (
-    <section className='section-wrapper'>
+    <section className='section'>
       <form className='auth' onSubmit={handleSubmit}>
         <div className='auth__header'>
           Регистрация
@@ -56,7 +56,7 @@ const SignUp = () => {
         />
         <div className="auth__wrapper">
           <button
-            className='auth__btn'
+            className='btn'
             disabled={!email || !password}
           >
             Зарегистрироваться

@@ -11,4 +11,4 @@ const UserSchema = new Schema({
   files: [{type: Schema.Types.ObjectId, ref: 'File'}]
 })
 
-export default model<UserType & Document>('user', UserSchema)
+export default model<UserType & Document>('User', UserSchema)
