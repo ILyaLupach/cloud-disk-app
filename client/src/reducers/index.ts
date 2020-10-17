@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import fileReducer from './file.reducer'
+import fileReducer from './files.reducer'
 import userReducer from './user.reducer'
 
 const rootReducer = combineReducers({
-  file: fileReducer,
+  files: fileReducer,
   user: userReducer,
 })
 

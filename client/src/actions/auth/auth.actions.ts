@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 
 import { Dispatch } from 'redux';
 import { User } from '../../types/User';
-import { LOGOUT, SET_USER, UserActionTypes } from './types';
+import { LOGOUT, SET_USER, UserAction } from './types';
 
 interface Response extends AxiosResponse {
   data: {
@@ -25,7 +25,7 @@ export const signUp = async (email: string, password: string) => {
 }
 
 export const login = (email: string, password: string) =>
-  async (dispatch: Dispatch<UserActionTypes>) => {
+  async (dispatch: Dispatch<UserAction>) => {
     try {
       const res: Response = await axios.post(
         '/api/auth/login', {
@@ -42,13 +42,13 @@ export const login = (email: string, password: string) =>
     }
   }
 
-export const logOut = () => (dispatch: Dispatch<UserActionTypes>) => {
+export const logOut = () => (dispatch: Dispatch<UserAction>) => {
   localStorage.removeItem('token')
   dispatch({ type: LOGOUT })
 }
 
 export const auth = () =>
-  async (dispatch: Dispatch<UserActionTypes>) => {
+  async (dispatch: Dispatch<UserAction>) => {
     try {
       const response = await axios.get('api/auth/auth',
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }

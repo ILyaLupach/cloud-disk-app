@@ -4,10 +4,13 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 import authMiddleware from '../middleware/auth.middleware'
-import User from '../models/user'
+import User from '../models/User'
+import File from '../models/File'
+import fileService from '../services/file.service'
 
 import { Document } from 'mongoose'
 import { UserType } from '../types'
+import { userInfo } from 'os'
 
 const router = Router()
 
@@ -34,6 +37,8 @@ router.post('/signup',
       const hashPassword: string = await bcrypt.hash(password, 5)
       const newUser: UserType & Document = new User({ email, password: hashPassword })
       await newUser.save()
+
+      await fileService.createDir(new File({user: newUser.id, name: ''}))
 
       res.json({ message: 'User was created' })
 

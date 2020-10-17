@@ -1,4 +1,4 @@
-import { LOGOUT, SET_USER, UserActionTypes } from '../actions/auth/types'
+import { LOGOUT, SET_USER, UserAction } from '../actions/auth/types'
 import { User } from '../types/User'
 
 export type UserStateType = {
@@ -7,11 +7,11 @@ export type UserStateType = {
 }
 
 const defaultState: UserStateType = {
-  isGuest: true,
+  isGuest: false,
   currentUser: null,
 }
 
-export default (state = defaultState, action: UserActionTypes) => {
+export default (state = defaultState, action: UserAction) => {
   switch (action.type) {
     case SET_USER:
       return {

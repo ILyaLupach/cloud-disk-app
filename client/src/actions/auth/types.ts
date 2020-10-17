@@ -3,13 +3,13 @@ import { User } from '../../types/User'
 export const SET_USER = 'SEND_MESSAGE'
 export const LOGOUT = 'LOGOUT'
 
-interface SetUserAction {
+interface SetUser {
   type: typeof SET_USER
   payload: User
 }
 
-interface LogOutAction {
+interface LogOut {
   type: typeof LOGOUT
 }
 
-export type UserActionTypes = SetUserAction | LogOutAction
+export type UserAction = SetUser | LogOut

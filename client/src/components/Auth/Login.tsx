@@ -35,7 +35,7 @@ const Login = () => {
   }
 
   return (
-    <section className='section-wrapper'>
+    <section className='section'>
       <form className='auth' onSubmit={handleSubmit}>
         <div className='auth__header'>
           Войти в аккаунт
@@ -58,7 +58,7 @@ const Login = () => {
         />
         <div className="auth__wrapper">
           <button
-            className='auth__btn auth__btn_login'
+            className='btn btn_login'
             disabled={!email || !password }
           >
             Войти

@@ -33,7 +33,7 @@ const SignUp = () => {
   }
 
   return (
-    <section className='section-wrapper'>
+    <section className='section'>
       <form className='auth' onSubmit={handleSubmit}>
         <div className='auth__header'>
           Регистрация
@@ -56,7 +56,7 @@ const SignUp = () => {
         />
         <div className="auth__wrapper">
           <button
-            className='auth__btn'
+            className='btn'
             disabled={!email || !password}
           >
             Зарегистрироваться
