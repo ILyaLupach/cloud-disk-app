@@ -18,11 +18,13 @@
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.36",
+    "@types/express-fileupload": "^1.1.5",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.2",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9"

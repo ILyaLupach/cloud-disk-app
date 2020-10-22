@@ -6,6 +6,7 @@ const router = Router()
 
 router.post('', authMiddleware, fileController.createDir)
 router.get('', authMiddleware, fileController.getFiles)
+router.post('/upload', authMiddleware, fileController.uploadFile)
 router.get('/download', authMiddleware, fileController.downloadFile)
 
 export default router

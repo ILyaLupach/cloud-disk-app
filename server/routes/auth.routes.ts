@@ -10,7 +10,6 @@ import fileService from '../services/file.service'
 
 import { Document } from 'mongoose'
 import { UserType } from '../types'
-import { userInfo } from 'os'
 
 const router = Router()
 
