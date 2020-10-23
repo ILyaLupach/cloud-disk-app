@@ -7,8 +7,10 @@ import { FileType } from '../types'
 
 class FileService {
 
+  getPath = (file: FileType) => path.join(__dirname, `../files/${file.user}/${file.path}`)
+
   createDir = (file: FileType) => {
-    const filePath = path.join(__dirname, `../files/${file.user}/${file.path}`)
+    const filePath = this.getPath(file)
     return new Promise((resolve, reject) => {
       try {
         if (!fs.existsSync(filePath)) {
@@ -23,7 +25,12 @@ class FileService {
     })
   }
 
-
+  removeFile = (file: FileType) => {
+    const filePath = this.getPath(file)
+    file.type === 'dir'
+      ? fs.rmdirSync(filePath)
+      : fs.unlinkSync(filePath)
+  }
 }
 
 export default new FileService()

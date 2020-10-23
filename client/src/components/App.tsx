@@ -31,7 +31,7 @@ export const App = () => {
       ) : (
         <Switch>
           <Route exact path='/disk' component={Disk} />
-          <Redirect to='/' />
+          <Redirect to='/disk'/>
         </Switch>
       )}
     </BrowserRouter>

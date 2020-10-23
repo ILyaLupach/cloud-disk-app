@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { pushToStack, setCurrentDir } from '../../../../actions/files/files.actions'
+import { downloadFile, pushToStack, removeFile, setCurrentDir } from '../../../../actions/files/files.actions'
 import moment from 'moment'
 import { File as FileType } from '../../../../types/File'
 import FolderIcon from '../../../../assets/images/folder.svg'
@@ -23,6 +23,15 @@ const File = ({ file }: Props) => {
     dispatch(setCurrentDir(file._id))
   }
 
+  const downloadClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    downloadFile(file)
+  }
+  const removeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    dispatch(removeFile(file))
+  }
+
   return (
     <div className='file' onClick={file.type === 'dir' ? openDir : undefined}>
       <img
@@ -31,6 +40,20 @@ const File = ({ file }: Props) => {
         className="file__img"
       />
       <div className="file__name">{file.name}</div>
+      {file.type !== 'dir' && (
+        <button
+          className='file__download'
+          onClick={downloadClick}
+        >
+          скачать
+        </button>
+      )}
+      <button
+        className='file__remove'
+        onClick={removeClick}
+      >
+        удалить
+      </button>
       <div className="file__data">{date}</div>
       <div className="file__size">{file.size}</div>
     </div>

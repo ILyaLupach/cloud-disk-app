@@ -13,3 +13,13 @@
     }
   }
 }
+.drop-area {
+  width: 90%;
+  height: 90%;
+  margin: 10px;
+  border: $font-color 2px dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}

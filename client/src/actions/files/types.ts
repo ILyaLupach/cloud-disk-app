@@ -3,8 +3,8 @@ import { File } from '../../types/File'
 export const SET_FILES = 'SET_FILES'
 export const SET_CURRENT_DIR = 'SET_CURRENT_DIR'
 export const ADD_FILE = 'ADD_FILE'
-export const GO_TO_BACK = 'GO_TO_BACK'
 export const PUSH_TO_STACK = 'PUSH_TO_STACK'
+export const REMOVE_FILE = 'REMOVE_FILE'
 
 interface SetFiles {
   type: typeof SET_FILES
@@ -26,4 +26,9 @@ interface PushToStack {
   payload: string | null
 }
 
-export type FilesAction = SetFiles | SetCurrentDir | AddFile | PushToStack
+interface RemoveFile {
+  type: typeof REMOVE_FILE
+  payload: string
+}
+
+export type FilesAction = SetFiles | SetCurrentDir | AddFile | PushToStack | RemoveFile

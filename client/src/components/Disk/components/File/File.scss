@@ -29,4 +29,26 @@
     grid-column-start: 6;
     justify-self: center;
   }
+
+  &__download,
+  &__remove {
+    justify-self: center;
+    cursor: pointer;
+    opacity: .3;
+  }
+  &__download {
+    grid-column-start: 3;
+    color: green;
+  }
+  &__remove {
+    grid-column-start: 4;
+    color: red;
+  }
+
+  &:hover {
+    .file__download,
+    .file__remove {
+      opacity: .7;
+    }
+  }
 }

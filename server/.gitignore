@@ -1,4 +1,5 @@
 /node_modules
+/files
 yarn-debug.log*
 yarn-error.log*
 /.pnp

@@ -5,7 +5,6 @@ import File from '../models/File'
 import { FileType, UserType } from '../types'
 import path from 'path'
 import fs from 'fs'
-
 //TODO fix types any
 class FileController {
   createDir = async (req: Request | any, res: Response) => {
@@ -41,22 +40,6 @@ class FileController {
     }
   }
 
-  downloadFile = async (req: Request | any, res: Response) => {
-    try {
-      const file = await File.findOne({ id: req.query.parent, user: req.user.id })
-      if (!file) return res.status(400).json({ message: 'file not found' })
-      const filePath = path.join(__dirname, `../files/${req.user.id}/${file.path}/${file.name}`)
-      if (fs.existsSync(filePath)) {
-        return res.download(filePath, `${file.name}`)
-      } else {
-        return res.status(400).json({ message: 'file not found' })
-      }
-    } catch (error) {
-      console.log(error)
-      return res.status(500).json({ message: 'Download ferror' })
-    }
-  }
-
   uploadFile = async (req: Request | any, res: Response) => {
     try {
       const { file } = req.files
@@ -71,14 +54,14 @@ class FileController {
       user.usedSpace = user.usedSpace + file.size
 
       const filePath = parent
-        ? path.join(__dirname, `../files/${req.user.id}/${parent.path}/${file.name}`)
-        : path.join(__dirname, `../files/${req.user.id}/${file.name}`)
-
-      if (fs.existsSync(filePath)) {
+        ? `${parent.path}/${file.name}`
+        : file.name
+      const DBpath = path.join(__dirname, `../files/${req.user.id}/${filePath}`)
+      if (fs.existsSync(DBpath)) {
         return res.status(400).json({ message: 'File already exist' })
       }
 
-      file.mv(filePath)
+      file.mv(DBpath)
 
       const fileType = file.name.split('.').pop()
       const fileDB = new File({
@@ -98,6 +81,38 @@ class FileController {
       return res.status(500).json({ message: 'Upload error' })
     }
   }
+
+  downloadFile = async (req: Request | any, res: Response) => {
+    try {
+      const file: any = await File.findOne({ _id: req.query.id, user: req.user.id })
+      if (!file) return res.status(400).json({ message: 'file not found' })
+      const filePath = path.join(__dirname, `../files/${req.user.id}/${file.path}`)
+      if (fs.existsSync(filePath)) {
+        return res.download(filePath, file.name)
+      } else {
+        return res.status(400).json({ message: 'file not found' })
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Download ferror' })
+    }
+  }
+
+  removeFiles = async (req: Request | any, res: Response) => {
+    try {
+      const file = await File.findOne({ _id: req.query.id, user: req.user.id })
+      if (!file) return res.status(400).json({ message: 'file not found' })
+
+      fileService.removeFile(file)
+
+      await file.remove()
+      return res.json({ message: 'File was deleted' })
+    } catch (error) {
+      console.log(error)
+      return res.status(400).json({ message: 'Dir is not empty' })
+    }
+  }
+
 }
 
 export default new FileController()

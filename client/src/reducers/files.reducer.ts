@@ -1,4 +1,4 @@
-import { ADD_FILE, FilesAction, GO_TO_BACK, PUSH_TO_STACK, SET_CURRENT_DIR, SET_FILES } from '../actions/files/types'
+import { ADD_FILE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from '../actions/files/types'
 import { File } from '../types/File'
 
 export type FileStateType = {
@@ -34,6 +34,11 @@ export default (state = defaultState, action: FilesAction) => {
       return {
         ...state,
         dirStack: [...state.dirStack, action.payload]
+      }
+    case REMOVE_FILE:
+      return {
+        ...state,
+        files: state.files.filter(file => file._id !== action.payload)
       }
     default:
       return state
