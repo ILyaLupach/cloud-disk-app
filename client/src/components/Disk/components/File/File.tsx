@@ -8,6 +8,7 @@ import FileIcon from '../../../../assets/images/file.svg'
 import { RootState } from '../../../../reducers'
 
 import './File.scss'
+import formatSize from '../../../../utils/formatSize'
 
 type Props = {
   file: FileType
@@ -55,7 +56,7 @@ const File = ({ file }: Props) => {
         удалить
       </button>
       <div className="file__data">{date}</div>
-      <div className="file__size">{file.size}</div>
+      <div className="file__size">{formatSize(file.size)}</div>
     </div>
   )
 }

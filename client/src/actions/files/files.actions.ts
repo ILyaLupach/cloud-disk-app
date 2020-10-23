@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 
 import { Dispatch } from 'redux';
 import { File } from '../../types/File';
+import { ADD_UPLOAD_FILE, CHANGE_UPLOAD_PROGRESS, SHOW_UPLOADER, UploadAction } from '../upload/types';
 import { ADD_FILE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from './types';
 
 interface Response extends AxiosResponse {
@@ -43,11 +44,20 @@ export const createDir = (dirId: string | null, name: string, type: string) =>
   }
 
 export const uploadDFile = (file: any, parent?: string | null) =>
-  async (dispatch: Dispatch<FilesAction>) => {
+  async (dispatch: Dispatch<FilesAction | UploadAction>) => {
     try {
       const formData = new FormData()
       formData.append('file', file)
       parent && formData.append('parent', parent)
+      const uploadFile = {name: file.name, progress: 0, id: Date.now()}
+      dispatch({
+        type: ADD_UPLOAD_FILE,
+        payload: uploadFile
+      })
+      dispatch({
+        type: SHOW_UPLOADER,
+        payload: true
+      })
       const { data } = await axios.post('api/files/upload',
         formData,
         {
@@ -56,8 +66,11 @@ export const uploadDFile = (file: any, parent?: string | null) =>
             const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length')
             console.log('total', totalLength)
             if (totalLength) {
-              const progress = Math.round(progressEvent.loaded * 100 / totalLength)
-              //TODO add loading component
+              uploadFile.progress = Math.round(progressEvent.loaded * 100 / totalLength)
+              dispatch({
+                type: CHANGE_UPLOAD_PROGRESS,
+                payload: uploadFile
+              })
             }
           }
         }

@@ -6,12 +6,15 @@ import CreateNewFilePopup from './components/Popup'
 import FileList from './components/FileList'
 
 import './Disk.scss'
+import UpLoader from '../shared/UpLoader'
+import { SHOW_UPLOADER } from '../../actions/upload/types'
 
 const Disk = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [dragEnter, setDragEnter] = useState(false)
   const dispatch = useDispatch()
   const { currentDir, dirStack } = useSelector((state: RootState) => state.files)
+  const { isVisible } = useSelector((state: RootState) => state.upload)
 
   useEffect(() => {
     dispatch(getFiles(currentDir))
@@ -59,7 +62,6 @@ const Disk = () => {
         >
           Перетащите файлы в окно
       </div>
-
       </section>
     )
   }
@@ -91,11 +93,11 @@ const Disk = () => {
               multiple
             />
           </label>
-
         </div>
         <FileList />
       </div>
       {showPopup && <CreateNewFilePopup onClose={() => setShowPopup(false)} />}
+      {isVisible && <UpLoader />}
     </section>
   )
 }
