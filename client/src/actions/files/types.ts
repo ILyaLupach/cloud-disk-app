@@ -5,6 +5,7 @@ export const SET_CURRENT_DIR = 'SET_CURRENT_DIR'
 export const ADD_FILE = 'ADD_FILE'
 export const PUSH_TO_STACK = 'PUSH_TO_STACK'
 export const REMOVE_FILE = 'REMOVE_FILE'
+export const CHANGE_PLATE = 'CHANGE_PLATE'
 
 interface SetFiles {
   type: typeof SET_FILES
@@ -31,4 +32,10 @@ interface RemoveFile {
   payload: string
 }
 
-export type FilesAction = SetFiles | SetCurrentDir | AddFile | PushToStack | RemoveFile
+interface ChangePlate {
+  type: typeof CHANGE_PLATE
+  payload: number
+}
+
+export type FilesAction =
+  SetFiles | SetCurrentDir | AddFile | PushToStack | RemoveFile | ChangePlate

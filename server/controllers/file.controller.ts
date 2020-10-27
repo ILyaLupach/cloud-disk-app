@@ -5,6 +5,8 @@ import File from '../models/File'
 import { FileType, UserType } from '../types'
 import path from 'path'
 import fs from 'fs'
+import { v4 } from 'uuid';
+
 //TODO fix types any
 class FileController {
   createDir = async (req: Request | any, res: Response) => {
@@ -32,7 +34,25 @@ class FileController {
 
   getFiles = async (req: Request | any, res: Response) => {
     try {
-      const file = await File.find({ user: req.user.id, parent: req.query.parent })
+      const { sort } = req.query
+      let file = {}
+      switch (sort) {
+        case 'name':
+          file = await File.find({ user: req.user.id, parent: req.query.parent }).sort({ name: 1 })
+          break;
+        case 'type':
+          file = await File.find({ user: req.user.id, parent: req.query.parent }).sort({ type: 1 })
+          break;
+        case 'date':
+          file = await File.find({ user: req.user.id, parent: req.query.parent }).sort({ date: 1 })
+        case 'size':
+          file = await File.find({ user: req.user.id, parent: req.query.parent }).sort({ size: 1 })
+          break;
+
+        default:
+          file = await File.find({ user: req.user.id, parent: req.query.parent })
+          break;
+      }
       return res.json(file)
     } catch (error) {
       console.log(error)
@@ -113,6 +133,49 @@ class FileController {
     }
   }
 
+  searchQuery = async (req: Request | any, res: Response) => {
+    try {
+      const search = req.query.search
+      let files = await File.find({ user: req.user.id })
+      files = files.filter(file => file.name.includes(search))
+      return res.json(files)
+    } catch (error) {
+      console.log(error)
+      return res.status(400).json({ message: 'Search error' })
+    }
+  }
+
+  uploadAvatar = async (req: Request | any, res: Response) => {
+    try {
+      const file = req.files.file
+      const user = await User.findById(req.user.id)
+      if (!user) return res.status(401).json({ message: 'upload avatar error' })
+      const avatarName = v4() + '.jpg'
+      const staticPath = path.join(__dirname, `../static/${avatarName}`)
+      file.mv(staticPath)
+      user.avatar = avatarName
+      await user.save()
+      return res.json(user)
+    } catch (error) {
+      console.log(error)
+      return res.status(400).json({ message: 'upload avatar error' })
+    }
+  }
+
+  removeAvatar = async (req: Request | any, res: Response) => {
+    try {
+      const user = await User.findById(req.user.id)
+      if (!user) return res.status(401).json({ message: 'remove avatar error' })
+      const staticPath = path.join(__dirname, `../static/${user.avatar}`)
+      fs.unlinkSync(staticPath)
+      user.avatar = undefined
+      await user.save()
+      return res.json(user)
+    } catch (error) {
+      console.log(error)
+      return res.status(400).json({ message: 'remove avatar error' })
+    }
+  }
 }
 
 export default new FileController()

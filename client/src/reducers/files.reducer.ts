@@ -1,16 +1,18 @@
-import { ADD_FILE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from '../actions/files/types'
+import { ADD_FILE, CHANGE_PLATE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from '../actions/files/types'
 import { File } from '../types/File'
 
 export type FileStateType = {
   currentDir: string | null
   files: File[]
   dirStack: string[]
+  plate: number
 }
 
 const defaultState: FileStateType = {
   files: [],
   currentDir: null,
-  dirStack: []
+  dirStack: [],
+  plate: 1
 }
 
 export default (state = defaultState, action: FilesAction) => {
@@ -39,6 +41,11 @@ export default (state = defaultState, action: FilesAction) => {
       return {
         ...state,
         files: state.files.filter(file => file._id !== action.payload)
+      }
+    case CHANGE_PLATE:
+      return {
+        ...state,
+        plate: action.payload
       }
     default:
       return state

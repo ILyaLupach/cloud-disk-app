@@ -10,6 +10,7 @@ import { RootState } from '../reducers'
 
 import '../assets/styles/global.scss'
 import Disk from './Disk'
+import Profile from './Disk/components/Profile'
 
 export const App = () => {
   const { isGuest } = useSelector((state: RootState) => state.user)
@@ -29,11 +30,12 @@ export const App = () => {
           <Redirect to='/login' />
         </Switch>
       ) : (
-        <Switch>
-          <Route exact path='/disk' component={Disk} />
-          <Redirect to='/disk'/>
-        </Switch>
-      )}
+          <Switch>
+            <Route exact path='/disk' component={Disk} />
+            <Route path='/profile' component={Profile} />
+            <Redirect to='/disk' />
+          </Switch>
+        )}
     </BrowserRouter>
   )
 }

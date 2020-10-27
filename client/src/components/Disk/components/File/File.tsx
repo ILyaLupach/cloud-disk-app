@@ -15,7 +15,7 @@ type Props = {
 }
 
 const File = ({ file }: Props) => {
-  const { currentDir } = useSelector((state: RootState) => state.files)
+  const { currentDir, plate } = useSelector((state: RootState) => state.files)
   const dispatch = useDispatch()
   const date = moment(file.date).format('DD.MM.YYYY')
 
@@ -33,32 +33,60 @@ const File = ({ file }: Props) => {
     dispatch(removeFile(file))
   }
 
-  return (
-    <div className='file' onClick={file.type === 'dir' ? openDir : undefined}>
-      <img
-        src={file.type === 'dir' ? FolderIcon : FileIcon}
-        alt={file.name}
-        className="file__img"
-      />
-      <div className="file__name">{file.name}</div>
-      {file.type !== 'dir' && (
-        <button
-          className='file__download'
-          onClick={downloadClick}
-        >
-          скачать
-        </button>
-      )}
-      <button
-        className='file__remove'
-        onClick={removeClick}
-      >
-        удалить
-      </button>
-      <div className="file__data">{date}</div>
-      <div className="file__size">{formatSize(file.size)}</div>
-    </div>
-  )
+  switch (plate) {
+    case 1:
+      return (
+        <div className='file' onClick={file.type === 'dir' ? openDir : undefined}>
+          <img
+            src={file.type === 'dir' ? FolderIcon : FileIcon}
+            alt={file.name}
+            className="file__img"
+          />
+          <div className="file__name">{file.name}</div>
+          {file.type !== 'dir' && (
+            <button
+              className='file__download'
+              onClick={downloadClick}
+            >
+              скачать
+            </button>
+          )}
+          <button
+            className='file__remove'
+            onClick={removeClick}
+          >
+            удалить
+          </button>
+          <div className="file__data">{date}</div>
+          <div className="file__size">{formatSize(file.size)}</div>
+        </div>
+      )
+    case 2:
+      return (
+        <div className='file file_plate-2' onClick={file.type === 'dir' ? openDir : undefined}>
+          <img
+            src={file.type === 'dir' ? FolderIcon : FileIcon}
+            alt={file.name}
+            className="file__img"
+          />
+          <div className="file__name">{file.name}</div>
+          <div className="file__btns">
+            {file.type !== 'dir' && (
+              <button
+                className='file__download-icon'
+                onClick={downloadClick}
+              />
+            )}
+            <button
+              className='file__remove-icon'
+              onClick={removeClick}
+            />
+          </div>
+        </div>
+      )
+    default:
+      return null
+  }
 }
 
 export default File

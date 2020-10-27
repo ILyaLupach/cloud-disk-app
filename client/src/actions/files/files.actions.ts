@@ -1,18 +1,19 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 import { Dispatch } from 'redux';
 import { File } from '../../types/File';
 import { ADD_UPLOAD_FILE, CHANGE_UPLOAD_PROGRESS, SHOW_UPLOADER, UploadAction } from '../upload/types';
-import { ADD_FILE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from './types';
+import { ADD_FILE, CHANGE_PLATE, FilesAction, PUSH_TO_STACK, REMOVE_FILE, SET_CURRENT_DIR, SET_FILES } from './types';
 
-interface Response extends AxiosResponse {
-  data: File[]
-}
-
-export const getFiles = (dirId: string | null) =>
+//TODO add Preloader
+export const getFiles = (dirId: string | null, sort: string = 'type') =>
   async (dispatch: Dispatch<FilesAction>) => {
     try {
-      const { data } = await axios.get(`api/files${dirId ? '?parent=' + dirId : ''}`,
+      let url: string = 'api/files'
+      if (dirId) url = `api/files?parent=${dirId}`
+      if (sort) url = `api/files?sort=${sort}`
+      if (sort && dirId) url = `api/files?parent=${dirId}&sort=${sort}`
+      const { data } = await axios.get(url,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       )
       dispatch({
@@ -49,7 +50,7 @@ export const uploadDFile = (file: any, parent?: string | null) =>
       const formData = new FormData()
       formData.append('file', file)
       parent && formData.append('parent', parent)
-      const uploadFile = {name: file.name, progress: 0, id: Date.now()}
+      const uploadFile = { name: file.name, progress: 0, id: Date.now() }
       dispatch({
         type: ADD_UPLOAD_FILE,
         payload: uploadFile
@@ -130,4 +131,27 @@ export const removeFile = (file: File) =>
     } catch (error) {
       console.log(error.responce)
     }
+  }
+
+export const searchFiles = (search: string) =>
+  async (dispatch: Dispatch<FilesAction>) => {
+    try {
+      const { data } = await axios.get(`api/files/search?search=${search}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      )
+      dispatch({
+        type: SET_FILES,
+        payload: data
+      })
+    } catch (error) {
+      console.log(error.responcee)
+    }
+  }
+
+export const changePlate = (plate: number) =>
+  (dispatch: Dispatch<FilesAction>) => {
+    dispatch({
+      type: CHANGE_PLATE,
+      payload: plate
+    })
   }

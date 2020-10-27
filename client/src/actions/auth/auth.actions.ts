@@ -58,5 +58,40 @@ export const auth = () =>
         payload: response.data.user
       })
       localStorage.setItem('token', response.data.token)
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+     }
+  }
+
+export const uploadAvatar = (file: any) =>
+  async (dispatch: Dispatch<UserAction>) => {
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await axios.post('api/files/avatar', formData,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      )
+      dispatch({
+        type: SET_USER,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  export const removeAvatar = () =>
+  async (dispatch: Dispatch<UserAction>) => {
+    try {
+      const response = await axios.delete('api/files/avatar',
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      )
+      dispatch({
+        type: SET_USER,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }

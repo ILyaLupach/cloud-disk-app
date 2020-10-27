@@ -13,6 +13,39 @@
       margin-right: 10px;
     }
   }
+  &__select {
+    color: $font-color;
+    font-weight: 700;
+    border-radius: 8px;
+    border: solid 1px  $font-color;
+    padding: 5px;
+    padding-right: 30px;
+  }
+  &__plate {
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: center center no-repeat;
+    background-size: contain;
+    opacity: .4;
+    &_is-active {
+      opacity: 1;
+    }
+    &_1 {
+      margin-left: auto;
+      background-image: url('../../assets/images/plate-1.svg');
+    }
+    &_2 {
+      background-image: url('../../assets/images/plate-2.svg');
+    }
+    &_3 {
+      margin-right: 20px;
+      background-image: url('../../assets/images/plate-3.svg');
+    }
+  }
 }
 .drop-area {
   width: 90%;

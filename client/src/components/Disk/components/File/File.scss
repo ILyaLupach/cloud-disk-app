@@ -9,27 +9,49 @@
   align-items: center;
   &:hover {
     transform: scale(1.01);
+    .file__download,
+    .file__remove {
+      opacity: .7;
+    }
   }
-
+  &_plate-2 {
+    max-height: none;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: none;
+    .file__img {
+      height: 100px;
+      width: 100px;
+    }
+    &:hover {
+      .file__btns {
+        display: flex;
+      }
+    }
+  }
   &__img {
     height: 30px;
     margin-left: 10px;
   }
-
   &__name {
     grid-column-start: 2;
+    max-height: 38px;
+    overflow: hidden;
   }
-
   &__data {
     grid-column-start: 5;
     justify-self: center;
   }
-
   &__size {
     grid-column-start: 6;
     justify-self: center;
   }
-
   &__download,
   &__remove {
     justify-self: center;
@@ -44,11 +66,27 @@
     grid-column-start: 4;
     color: red;
   }
-
-  &:hover {
-    .file__download,
-    .file__remove {
-      opacity: .7;
+  &__btns {
+    display: none;
+    position: absolute;
+    top: 100%;
+    justify-content: space-around;
+  }
+  &__download-icon,
+  &__remove-icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    margin: 0 5px;
+    &:hover {
+      transform: scale(1.2);
     }
+  }
+  &__download-icon {
+    background-image: url(../../../../assets/images/download.svg);
+  }
+  &__remove-icon {
+    background-image: url(../../../../assets/images/remove.svg);
   }
 }

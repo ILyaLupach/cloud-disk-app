@@ -19,10 +19,21 @@
     grid-column-start: 6;
     justify-self: center;
   }
+
+  &__not-found {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+  &_plate-2 {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .file-enter-active {
-  animation: file-enter 500ms forwards;
+  animation: file-enter .3s forwards;
 }
 
 @keyframes file-enter {
