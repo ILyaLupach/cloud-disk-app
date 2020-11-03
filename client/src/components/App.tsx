@@ -8,7 +8,7 @@ import Login from './Auth/Login'
 
 import { RootState } from '../reducers'
 
-import '../assets/styles/global.scss'
+import '@assets/styles/global.scss'
 import Disk from './Disk'
 import Profile from './Disk/components/Profile'
 

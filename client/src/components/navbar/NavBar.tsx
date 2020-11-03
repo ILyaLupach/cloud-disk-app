@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { logOut } from '../../actions/auth/auth.actions'
 import { getFiles, searchFiles } from '../../actions/files/files.actions'
-import FolderIcon from '../../assets/images/folders.svg'
-import DefaultAvatar from '../../assets/images/defaultAvatar.svg'
+import FolderIcon from '@assets/images/folders.svg'
+import DefaultAvatar from '@assets/images/defaultAvatar.svg'
 
 import { RootState } from '../../reducers'
 

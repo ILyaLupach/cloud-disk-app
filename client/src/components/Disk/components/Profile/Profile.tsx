@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../reducers'
-import DefaultAvatar from '../../../../assets/images/defaultAvatar.svg'
+import DefaultAvatar from '@assets/images/defaultAvatar.svg'
 import { removeAvatar, uploadAvatar } from '../../../../actions/auth/auth.actions'
 
 import './Profile.scss'
